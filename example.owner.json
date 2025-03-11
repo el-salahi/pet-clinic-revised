@@ -1,0 +1,35 @@
+{
+  "id": 10,
+  "firstName": "Carlos",
+  "lastName": "Estaban",
+  "address": "2335 Independence La.",
+  "city": "Waunakee",
+  "telephone": "6085555487",
+  "pets": [
+    {
+      "id": 12,
+      "name": "Lucky",
+      "birthDate": "2010-06-24",
+      "type": {
+        "id": 2,
+        "name": "dog",
+        "new": false
+      },
+      "visits": [],
+      "new": false
+    },
+    {
+      "id": 13,
+      "name": "Sly",
+      "birthDate": "2012-06-08",
+      "type": {
+        "id": 1,
+        "name": "cat",
+        "new": false
+      },
+      "visits": [],
+      "new": false
+    }
+  ],
+  "new": false
+}
