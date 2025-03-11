@@ -15,15 +15,18 @@
  */
 package org.springframework.samples.petclinic.repository;
 
+import jakarta.annotation.Nonnull;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.Repository;
+import org.springframework.samples.petclinic.model.owner.Owner;
 import org.springframework.samples.petclinic.model.vet.Vet;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * Repository class for <code>Vet</code> domain objects All method names are compliant
@@ -56,4 +59,6 @@ public interface VetRepository extends Repository<Vet, Integer> {
 	@Cacheable("vets")
 	Page<Vet> findAll(Pageable pageable) throws DataAccessException;
 
+
+	Optional<Vet> findById(@Nonnull Integer id);
 }

@@ -1,0 +1,27 @@
+### get owners
+GET http://127.0.0.1:8080/v1/owners
+
+### get owner
+GET http://127.0.0.1:8080/v1/owners/10
+
+### get pet for an owner
+GET http://127.0.0.1:8080/v1/owners/10/pets/12
+
+### create a new owner
+POST http://127.0.0.1:8080/v1/owners
+Content-Type: application/json
+
+{
+  "firstName": "Joe",
+  "lastName": "Bloggs",
+  "address": "2335 Independence La.",
+  "city": "Waunakee",
+  "telephone": "6085555487",
+  "new": false
+}
+
+### get vets
+GET http://127.0.0.1:8080/v1/vets
+
+### get vets by id
+GET http://127.0.0.1:8080/v1/vets/1

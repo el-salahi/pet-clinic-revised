@@ -2,9 +2,7 @@ package org.springframework.samples.petclinic.controller;
 
 import org.springframework.samples.petclinic.model.vet.Vet;
 import org.springframework.samples.petclinic.repository.VetRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -21,5 +19,10 @@ public class VetRestController {
 	@GetMapping("/vets")
 	public Collection<Vet> listVets() {
 		return vets.findAll();
+	}
+
+	@GetMapping("/vets/{vetId}")
+	public Vet getVet(@PathVariable int vetId) {
+		return vets.findById(vetId).get();
 	}
 }

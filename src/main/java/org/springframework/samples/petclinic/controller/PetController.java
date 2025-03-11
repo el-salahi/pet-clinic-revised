@@ -15,10 +15,7 @@
  */
 package org.springframework.samples.petclinic.controller;
 
-import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Optional;
-
+import jakarta.validation.Valid;
 import org.springframework.samples.petclinic.model.owner.Owner;
 import org.springframework.samples.petclinic.model.owner.Pet;
 import org.springframework.samples.petclinic.model.owner.PetType;
@@ -29,15 +26,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Optional;
 
 /**
  * @author Juergen Hoeller
@@ -66,7 +60,7 @@ class PetController {
 	public Owner findOwner(@PathVariable("ownerId") int ownerId) {
 		Optional<Owner> optionalOwner = this.owners.findById(ownerId);
 		Owner owner = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
-				"Owner not found with id: " + ownerId + ". Please ensure the ID is correct "));
+			"Owner not found with id: " + ownerId + ". Please ensure the ID is correct "));
 		return owner;
 	}
 
@@ -80,7 +74,7 @@ class PetController {
 
 		Optional<Owner> optionalOwner = this.owners.findById(ownerId);
 		Owner owner = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
-				"Owner not found with id: " + ownerId + ". Please ensure the ID is correct "));
+			"Owner not found with id: " + ownerId + ". Please ensure the ID is correct "));
 		return owner.getPet(petId);
 	}
 
@@ -103,7 +97,7 @@ class PetController {
 
 	@PostMapping("/pets/new")
 	public String processCreationForm(Owner owner, @Valid Pet pet, BindingResult result,
-			RedirectAttributes redirectAttributes) {
+									  RedirectAttributes redirectAttributes) {
 
 		if (StringUtils.hasText(pet.getName()) && pet.isNew() && owner.getPet(pet.getName(), true) != null)
 			result.rejectValue("name", "duplicate", "already exists");
@@ -130,7 +124,7 @@ class PetController {
 
 	@PostMapping("/pets/{petId}/edit")
 	public String processUpdateForm(Owner owner, @Valid Pet pet, BindingResult result,
-			RedirectAttributes redirectAttributes) {
+									RedirectAttributes redirectAttributes) {
 
 		String petName = pet.getName();
 
@@ -158,8 +152,9 @@ class PetController {
 
 	/**
 	 * Updates the pet details if it exists or adds a new pet to the owner.
+	 *
 	 * @param owner The owner of the pet
-	 * @param pet The pet with updated details
+	 * @param pet   The pet with updated details
 	 */
 	private void updatePetDetails(Owner owner, Pet pet) {
 		Pet existingPet = owner.getPet(pet.getId());
@@ -168,8 +163,7 @@ class PetController {
 			existingPet.setName(pet.getName());
 			existingPet.setBirthDate(pet.getBirthDate());
 			existingPet.setType(pet.getType());
-		}
-		else {
+		} else {
 			owner.addPet(pet);
 		}
 		this.owners.save(owner);
